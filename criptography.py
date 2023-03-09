@@ -1,11 +1,10 @@
 import numpy as np
-import random
 
-# Gerando alfabeto em one hot.
+# Gerando alfabeto em one hot ;
 
-#alphabet = "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z"
-alphabet = "A B C"
+alphabet = "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z"
 alphabet = alphabet.lower().split(" ") + [" "]
+
 t_alfa = len(alphabet)
 one_hot_alphabet = {}
 
@@ -21,8 +20,7 @@ for i in range(t_alfa):
     one_hot_alphabet[alphabet[i]] = matriz_letra
 
 
-
-# Transforma letras em one_hot code.
+# Transforma letras em one_hot code ;
 
 def para_one_hot(msg:str):
     one_hot_msg = []
@@ -35,75 +33,48 @@ def para_one_hot(msg:str):
 
     return one_hot_msg
 
-print(para_one_hot("abc"))
 
-
-
-# Transforma one_hot code em letras
+# Transforma one_hot code em letras ;
 
 def para_string(one_hot_msg:np.array):
     msg = ""
     decode = {str(v):k for k,v in one_hot_alphabet.items()}
-    print(decode)
     for matriz in one_hot_msg:
-        matriz_str = str(matriz).replace(',', '')
-        print(matriz_str)
+        matriz_str = str(matriz).replace(',', '').replace('.', '').replace('\n',"")
         msg += decode[matriz_str]
     return msg
 
-print(para_string([
-    [1,0,0,0],
-    [0,1,0,0],
-    [0,0,1,0],
-    [0,0,0,1],
-    [1,0,0,0],
-]))
 
-# Testing:
-
-msg = "hello world"
-print(msg)
-msg = para_one_hot(msg)
-msg = para_string(msg)
-print(msg)
-
-
-
-# Gera cifra e cifrar
+# Gera uma Cifra (Matriz de Permutação) aleatorizada para apliicar ao alfabeto one_hot ;
 
 def gera_cifra(alphabet):
     tamanho = len(alphabet)
     identidade = np.eye(tamanho)
     L = np.random.permutation(list(range(tamanho)))
     cifra = identidade[L, :]
-    print(cifra)
     return cifra
 
+# Aplica a cifra a uma mensagem : str ;
 
 def cifrar(msg:str, cifra:np.array):
     one_hot_cifrado = []
 
     for character in para_one_hot(msg):
         one_hot_cifrado.append(character@cifra)
-    print(one_hot_cifrado)
+
     msg_cifrada = para_string(one_hot_cifrado)
     
     return msg_cifrada
 
+# Desfaz todas as mudanças aplicadas a mensagem com base nas cifras originais ;
 
 
-# teste 2 ; tem algo errado
+def decifrar(msg_cifrada:str,cifras:list):
+    oh_cifrado = para_one_hot(msg_cifrada)
+    n = len(cifras)
+    if n > 1:
+        for i in range(1,n):
+            oh_cifrado = oh_cifrado@np.linalg.inv(cifras[-i])
+    oh_decifrado = oh_cifrado@np.linalg.inv(cifras[0])
 
-gera_cifra(alphabet)
-
-#cifrar("abcd",gera_cifra(alphabet))
-
-#msg = "abcd e"
-#cifra = gera_cifra(alphabet)
-#oh_msg = para_one_hot(msg)
-#one_hot_cifrado = []
-#for character in para_one_hot(msg):
-#    one_hot_cifrado.append(cifra@character)
-
-#for character in one_hot_cifrado:
-#    print(character)
+    return oh_decifrado
