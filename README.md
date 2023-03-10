@@ -173,7 +173,7 @@ O reverso desse processo pode ser aplicado para decodificar a mensagem.
 
   
 
-- No que se trata das matrizes de permutação, para que a cifra possa funcionar, é realizada uma multiplicação matricial da cifra por cada caractere de uma mensagem codificada em one-hot.
+- No que se trata das matrizes de permutação, para que a cifra possa funcionar, é realizada uma multiplicação matricial de uma cifra por cada caractere de uma mensagem codificada em one-hot.
 
 $$
 
@@ -210,3 +210,43 @@ $$
 \end{bmatrix}
 
 $$
+
+Para realização do processo inverso, o de decifrar, usamos a matriz inversa da cifra e a multiplicamos pelos caracteres. É quase igual ao processo de cifrar, porém com o uso da cifra inversa.
+
+$$
+
+\begin{bmatrix}
+
+0 & 0 & 1 \\
+
+1 & 0 & 0 \\
+
+0 & 1 & 0
+
+\end{bmatrix}
+
+\begin{bmatrix}
+
+0 & 1 & 0 & 1 \\
+
+1 & 0 & 0 & 0 \\
+
+0 & 0 & 1 & 0
+
+\end{bmatrix}
+
+=
+
+\begin{bmatrix}
+
+0 & 0 & 1 & 0 \\
+
+0 & 1 & 0 & 1 \\
+
+1 & 0 & 0 & 0
+
+\end{bmatrix}
+
+$$
+
+- Finalmente, para a aplicação do ciframento enigma, usamos o mesmo processo do ciframento
