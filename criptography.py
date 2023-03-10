@@ -60,6 +60,7 @@ def cifrar(msg:str, cifra:np.array,one_hot_alphabet,alphabet):
     one_hot_cifrado = []
     oh_msg = para_one_hot(msg,one_hot_alphabet,alphabet)
     for character in oh_msg:
+        print(cifra),print(character)
         one_hot_cifrado.append(cifra@character)
 
     msg_cifrada = para_string(one_hot_cifrado,one_hot_alphabet)
