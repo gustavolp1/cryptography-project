@@ -23,13 +23,13 @@ def gera_oh_alfabeto(alphabet):
 
 def para_one_hot(msg:str,one_hot_alphabet,alphabet):
     one_hot_msg = []
-    alphabet += ' '
+    alphabet = alphabet.lower().split(" ")
     for character in msg:
         character = character.lower()
         if character in alphabet:
             one_hot_msg.append(one_hot_alphabet[character])
         else:
-            one_hot_msg.append(one_hot_alphabet[len(one_hot_alphabet)-1])
+            one_hot_msg.append(one_hot_alphabet[" "])
 
     return one_hot_msg
 
@@ -48,7 +48,6 @@ def para_string(one_hot_msg:np.array,one_hot_alphabet):
 # Gera uma Cifra (Matriz de Permutação) aleatorizada para apliicar ao alfabeto one_hot ;
 
 def gera_cifra(alphabet):
-    alphabet += ' '
     tamanho = len(alphabet)
     identidade = np.eye(tamanho)
     L = np.random.permutation(list(range(tamanho)))
@@ -59,8 +58,8 @@ def gera_cifra(alphabet):
 
 def cifrar(msg:str, cifra:np.array,one_hot_alphabet,alphabet):
     one_hot_cifrado = []
-    alphabet += ' '
-    for character in para_one_hot(msg,one_hot_alphabet,alphabet):
+    oh_msg = para_one_hot(msg,one_hot_alphabet,alphabet)
+    for character in oh_msg:
         one_hot_cifrado.append(cifra@character)
 
     msg_cifrada = para_string(one_hot_cifrado,one_hot_alphabet)
@@ -70,9 +69,9 @@ def cifrar(msg:str, cifra:np.array,one_hot_alphabet,alphabet):
 # Desfaz todas as mudanças aplicadas a mensagem com base nas cifras originais ;
 
 
-def de_cifrar(msg_cifrada:str,cifra,one_hot_alphabet):
+def de_cifrar(msg_cifrada:str,cifra,one_hot_alphabet,alphabet):
     oh_decifrado = []
-    for character in para_one_hot(msg_cifrada,one_hot_alphabet):
+    for character in para_one_hot(msg_cifrada,one_hot_alphabet,alphabet):
         oh_decifrado.append(np.linalg.inv(cifra)@character)
     return para_string(oh_decifrado,one_hot_alphabet)
 
