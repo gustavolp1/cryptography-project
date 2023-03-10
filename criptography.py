@@ -78,3 +78,33 @@ def decifrar(msg_cifrada:str,cifras:list):
     oh_decifrado = oh_cifrado@np.linalg.inv(cifras[0])
 
     return oh_decifrado
+
+# Aplica uma cifra diferente para cada letra ;
+
+
+def enigma (msg, cifra, cifra_auxiliar):
+    encrypted_msg = []
+    one_hot_msg = para_one_hot(msg)
+    for i in range(len(one_hot_msg)):
+        caracter = (one_hot_msg[i]@cifra)
+        while i > 0 :
+            caracter = caracter@cifra_auxiliar
+            i -= 1
+        encrypted_msg.append(caracter)
+    return para_string(encrypted_msg)
+
+# Decifra o enigma gerado pela função anterior ;
+
+
+def de_enigma (msg, cifra, cifra_auxiliar):
+    decrypted_msg = []
+    one_hot_msg = para_one_hot(msg)
+    for i in range(len(one_hot_msg)):
+        j = i
+        caracter = one_hot_msg[i]
+        while j > 0 :
+            caracter = caracter@np.linalg.inv(cifra_auxiliar)
+            j -= 1
+        caracter = caracter@np.linalg.inv(cifra)
+        decrypted_msg.append(caracter)
+    return para_string(decrypted_msg)
