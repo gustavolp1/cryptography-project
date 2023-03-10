@@ -249,4 +249,40 @@ $$
 
 $$
 
-- Finalmente, para a aplicação do ciframento enigma, usamos o mesmo processo do ciframento
+- Finalmente, para a aplicação do ciframento enigma, usamos o mesmo processo do ciframento normal, porém com o adicional de uma cifra auxiliar. O processo é igual ao de ciframento comum, com a diferença de multiplicar a cifra adicional pelos caracteres cifrados, adicionando uma camada de ciframento a mais.
+
+$$
+
+\begin{bmatrix}
+
+0 & 0 & 1 \\
+
+1 & 0 & 0 \\
+
+0 & 1 & 0
+
+\end{bmatrix}
+
+\begin{bmatrix}
+
+0 & 1 & 0 & 1 \\
+
+1 & 0 & 0 & 0 \\
+
+0 & 0 & 1 & 0
+
+\end{bmatrix}
+
+=
+
+\begin{bmatrix}
+
+0 & 0 & 1 & 0 \\
+
+0 & 1 & 0 & 1 \\
+
+1 & 0 & 0 & 0
+
+\end{bmatrix}
+
+$$
