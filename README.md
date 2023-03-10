@@ -20,6 +20,7 @@ https://github.com/gustavolp1/cryptography-project
 - No Visual Studio, abra o arquivo "demo.py" dentro do repositório clonado. Você poderá usá-lo para testar o código.
 
 - Se deseja usar as funções em outros arquivos, salve "cryptography.py" no diretório no qual está trabalhando, e adicione a seguinte linha de código no começo de cada arquivo que as usa:
+##
     import cryptography
 
 
