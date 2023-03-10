@@ -6,21 +6,21 @@ https://github.com/gustavolp1/cryptography-project
 
 ## Como instalar e executar
 
-    - Instale o Python (https://www.python.org/) em sua máquina. O jogo foi desenvolvido especificamente para Windows, portanto não há garantia de que funcionará em outros sistemas operacionais.
+- Instale o Python (https://www.python.org/) em sua máquina. O jogo foi desenvolvido especificamente para Windows, portanto não há garantia de que funcionará em outros sistemas operacionais.
 
-    - Instale algum editor de texto/código, como o Visual Studio Code (https://code.visualstudio.com/).
+- Instale algum editor de texto/código, como o Visual Studio Code (https://code.visualstudio.com/).
 
-    - Abra o Visual Studio Code, procure pela opção Clonar Repositório, e selecione Clonar da Internet. No campo, cole o seguinte link: https://github.com/gustavolp1/cryptography-project
+- Abra o Visual Studio Code, procure pela opção Clonar Repositório, e selecione Clonar da Internet. No campo, cole o seguinte link: https://github.com/gustavolp1/cryptography-project
 
-    - Escolha uma localização em sua máquina para salvar o repositório clonado.
+- Escolha uma localização em sua máquina para salvar o repositório clonado.
 
-    - Abra o terminal e digite o comando a seguir:
-        pip install -r "requirements.txt"
+- Abra o terminal e digite o comando a seguir:
+    pip install -r "requirements.txt"
 
-    - No Visual Studio, abra o arquivo "demo.py" dentro do repositório clonado. Você poderá usá-lo para testar o código.
+- No Visual Studio, abra o arquivo "demo.py" dentro do repositório clonado. Você poderá usá-lo para testar o código.
 
-    - Se deseja usar as funções em outros arquivos, salve "cryptography.py" no diretório no qual está trabalhando, e adicione a seguinte linha de código no começo de cada arquivo que as usa:
-        import cryptography
+- Se deseja usar as funções em outros arquivos, salve "cryptography.py" no diretório no qual está trabalhando, e adicione a seguinte linha de código no começo de cada arquivo que as usa:
+    import cryptography
 
 
 ## Como usar a biblioteca
