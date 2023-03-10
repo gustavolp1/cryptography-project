@@ -60,7 +60,6 @@ def cifrar(msg:str, cifra:np.array,one_hot_alphabet,alphabet):
     one_hot_cifrado = []
     oh_msg = para_one_hot(msg,one_hot_alphabet,alphabet)
     for character in oh_msg:
-        print(cifra),print(character)
         one_hot_cifrado.append(cifra@character)
 
     msg_cifrada = para_string(one_hot_cifrado,one_hot_alphabet)
@@ -79,9 +78,9 @@ def de_cifrar(msg_cifrada:str,cifra,one_hot_alphabet,alphabet):
 # Aplica uma cifra diferente para cada letra ;
 
 
-def enigma (msg, cifra, cifra_auxiliar,one_hot_alphabet):
+def enigma (msg, cifra, cifra_auxiliar,one_hot_alphabet,alphabet):
     encrypted_msg = []
-    one_hot_msg = para_one_hot(msg,one_hot_alphabet)
+    one_hot_msg = para_one_hot(msg,one_hot_alphabet,alphabet)
     for i in range(len(one_hot_msg)):
         caracter = (cifra@one_hot_msg[i])
         while i > 0 :
@@ -93,9 +92,9 @@ def enigma (msg, cifra, cifra_auxiliar,one_hot_alphabet):
 # Decifra o enigma gerado pela função anterior ;
 
 
-def de_enigma (msg, cifra, cifra_auxiliar,one_hot_alphabet):
+def de_enigma (msg, cifra, cifra_auxiliar,one_hot_alphabet,alphabet):
     decrypted_msg = []
-    one_hot_msg = para_one_hot(msg,one_hot_alphabet)
+    one_hot_msg = para_one_hot(msg,one_hot_alphabet,alphabet)
     for i in range(len(one_hot_msg)):
         j = i
         caracter = one_hot_msg[i]
