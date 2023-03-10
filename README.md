@@ -41,4 +41,64 @@ https://github.com/gustavolp1/cryptography-project
         * `de_enigma(msg : str, P : np.array, E : np.array, alphabet : str)`: recupera uma mensagem cifrada como enigma, assumindo que ela foi cifrada com um cifrador comum e um auxiliar. O argumento `msg` é uma string contendo sua mensagem, `P` é o cifrador np.array, `E` é o cifrador auxiliar np.array, `alphabet` é uma string contendo seu alfabeto, e é retornada uma string com a mensagem decifrada.
 
 ## Modelo Matemático
+    - A codificação de mensagens em one-hot é feita por meio da representação de cada caractere como uma matriz de uma coluna e tantas linhas quanto a quantidade de caracteres no alfabeto. Por exemplo, um alfabeto de três letras pode ser representado como:
+
+$$
+A =
+\begin{bmatrix}
+    1 \\
+    0 \\
+    0
+\end{bmatrix}
+\hspace{0.5in}
+
+B =
+\begin{bmatrix}
+    0 \\
+    1 \\
+    0
+\end{bmatrix}
+\hspace{0.5in}
+C =
+\begin{bmatrix}
+    0 \\
+    0 \\
+    1
+\end{bmatrix}
+$$
+
+    Portanto, uma mensagem inteira é representada por uma matriz onde cada coluna equivale a uma matriz de caractere diferente. A mensagem "BACA", por exemplo, seria representada como:
+
+$$
+M = 
+\begin{bmatrix}
+    0 &  1 & 0 & 1 \\
+    1 &  0 & 0 & 0 \\
+    0 &  0 & 1 & 0
+\end{bmatrix}
+$$
+
+    Dessa forma, ao multiplicar a matriz da mensagem por uma matriz identidade permutada, podemos permutar cada coluna, e, consequentemente, substituir um caractere por outro linearmente.
+
+$$
+\begin{bmatrix}
+0 & 0 & 1 \\
+1 & 0 & 0 \\
+0 & 1 & 0 
+\end{bmatrix}
+\begin{bmatrix}
+    0 &  1 & 0 & 1 \\
+    1 &  0 & 0 & 0 \\
+    0 &  0 & 1 & 0 
+\end{bmatrix}
+= 
+\begin{bmatrix}
+    0 &  0 & 1 & 0 \\
+    0 &  1 & 0 & 1 \\
+    1 &  0 & 0 & 0 
+\end{bmatrix}
+$$
+
+    O reverso desse processo pode ser aplicado para decodificar a mensagem.
+
     - 
