@@ -40,7 +40,7 @@ def para_string(one_hot_msg:np.array):
     msg = ""
     decode = {str(v):k for k,v in one_hot_alphabet.items()}
     for matriz in one_hot_msg:
-        matriz_str = str(matriz).replace(',', '').replace('.', '').replace('\n',"")
+        matriz_str = str(matriz).replace(',', '').replace('.', '').replace('\n','')
         msg += decode[matriz_str]
     return msg
 
@@ -60,7 +60,7 @@ def cifrar(msg:str, cifra:np.array):
     one_hot_cifrado = []
 
     for character in para_one_hot(msg):
-        one_hot_cifrado.append(character@cifra)
+        one_hot_cifrado.append(cifra@character)
 
     msg_cifrada = para_string(one_hot_cifrado)
     
@@ -69,15 +69,11 @@ def cifrar(msg:str, cifra:np.array):
 # Desfaz todas as mudanças aplicadas a mensagem com base nas cifras originais ;
 
 
-def decifrar(msg_cifrada:str,cifras:list):
-    oh_cifrado = para_one_hot(msg_cifrada)
-    n = len(cifras)
-    if n > 1:
-        for i in range(1,n):
-            oh_cifrado = oh_cifrado@np.linalg.inv(cifras[-i])
-    oh_decifrado = oh_cifrado@np.linalg.inv(cifras[0])
-
-    return oh_decifrado
+def decifrar(msg_cifrada:str,cifra):
+    oh_decifrado = []
+    for character in para_one_hot(msg_cifrada):
+        oh_decifrado.append(np.linalg.inv(cifra)@character)
+    return para_string(oh_decifrado)
 
 # Aplica uma cifra diferente para cada letra ;
 
@@ -86,9 +82,9 @@ def enigma (msg, cifra, cifra_auxiliar):
     encrypted_msg = []
     one_hot_msg = para_one_hot(msg)
     for i in range(len(one_hot_msg)):
-        caracter = (one_hot_msg[i]@cifra)
+        caracter = (cifra@one_hot_msg[i])
         while i > 0 :
-            caracter = caracter@cifra_auxiliar
+            caracter = cifra_auxiliar@caracter
             i -= 1
         encrypted_msg.append(caracter)
     return para_string(encrypted_msg)
@@ -103,8 +99,24 @@ def de_enigma (msg, cifra, cifra_auxiliar):
         j = i
         caracter = one_hot_msg[i]
         while j > 0 :
-            caracter = caracter@np.linalg.inv(cifra_auxiliar)
+            caracter = np.linalg.inv(cifra_auxiliar)@caracter
             j -= 1
-        caracter = caracter@np.linalg.inv(cifra)
+        caracter = np.linalg.inv(cifra)@caracter
         decrypted_msg.append(caracter)
     return para_string(decrypted_msg)
+
+
+# Test 3 :
+
+"""
+msg = 'arthur'
+print(msg)
+cifra = gera_cifra(alphabet)
+cifra_aux = gera_cifra(alphabet)
+enigma1 = enigma(msg,cifra,cifra_aux)
+print(enigma1)
+print(de_enigma(enigma1,cifra,cifra_aux))
+cript_msg = cifrar(msg,cifra)
+print(cript_msg)
+print(decifrar(cript_msg,cifra))
+"""
