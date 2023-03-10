@@ -105,7 +105,7 @@ $$
 
   
 
-    Portanto, uma mensagem inteira é representada por uma matriz onde cada coluna equivale a uma matriz de caractere diferente. A mensagem "BACA", por exemplo, seria representada como:
+Portanto, uma mensagem inteira é representada por uma matriz onde cada coluna equivale a uma matriz de caractere diferente. A mensagem "BACA", por exemplo, seria representada como:
 
   
 
@@ -127,7 +127,7 @@ $$
 
   
 
-    Dessa forma, ao multiplicar a matriz da mensagem por uma matriz identidade permutada, podemos permutar cada coluna, e, consequentemente, substituir um caractere por outro linearmente.
+Dessa forma, ao multiplicar a matriz da mensagem por uma matriz identidade permutada, podemos permutar cada coluna, e, consequentemente, substituir um caractere por outro linearmente.
 
   
 
@@ -169,8 +169,44 @@ $$
 
   
 
-    O reverso desse processo pode ser aplicado para decodificar a mensagem.
+O reverso desse processo pode ser aplicado para decodificar a mensagem.
 
   
 
-- 
+- No que se trata das matrizes de permutação, para que a cifra possa funcionar, é realizada uma multiplicação matricial da cifra por cada caractere de uma mensagem codificada em one-hot.
+
+$$
+
+\begin{bmatrix}
+
+0 & 0 & 1 \\
+
+1 & 0 & 0 \\
+
+0 & 1 & 0
+
+\end{bmatrix}
+
+\begin{bmatrix}
+
+0 & 1 & 0 & 1 \\
+
+1 & 0 & 0 & 0 \\
+
+0 & 0 & 1 & 0
+
+\end{bmatrix}
+
+=
+
+\begin{bmatrix}
+
+0 & 0 & 1 & 0 \\
+
+0 & 1 & 0 & 1 \\
+
+1 & 0 & 0 & 0
+
+\end{bmatrix}
+
+$$
