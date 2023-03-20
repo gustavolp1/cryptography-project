@@ -103,10 +103,7 @@ C =
 
 $$
 
-OBS : Como este alfabeto não é padronizado, ele também é necessário para se decifrar a mensagem mais para frente.
-
 Portanto, uma mensagem inteira é representada por uma matriz onde cada coluna equivale a uma matriz de caractere diferente. A mensagem "BACA", por exemplo, seria representada como:
-
   
 
 $$
@@ -127,7 +124,7 @@ $$
 
   
 
-Dessa forma, ao multiplicar a matriz da mensagem por uma matriz identidade permutada, podemos permutar cada coluna, e, consequentemente, substituir um caractere por outro linearmente.
+Dessa forma, ao multiplicar a matriz da caracter por uma matriz identidade permutada, podemos permutar cada coluna, e, consequentemente, substituir um caractere por outro linearmente, para cada caracter da mensagem.
 
   
 
@@ -145,11 +142,11 @@ $$
 
 \begin{bmatrix}
 
-0 & 1 & 0 & 1 \\
+0 \\
 
-1 & 0 & 0 & 0 \\
+1 \\
 
-0 & 0 & 1 & 0
+0
 
 \end{bmatrix}
 
@@ -157,11 +154,11 @@ $$
 
 \begin{bmatrix}
 
-0 & 0 & 1 & 0 \\
+0 \\
 
-0 & 1 & 0 & 1 \\
+0 \\
 
-1 & 0 & 0 & 0
+1 
 
 \end{bmatrix}
 
@@ -169,120 +166,27 @@ $$
 
   
 
-O reverso desse processo pode ser aplicado para decodificar a mensagem.
+- O reverso desse processo pode ser aplicado para decodificar a mensagem e quanto maior o alfabeto maiores as dimensões em one-hot.
 
-  
+(OBS : Como este alfabeto não é padronizado, ele também é necessário para se codificar e decifrar a mensagem mais para frente, com sua ordem e quantidade de caracteres mudando a relação letra - one hot encoding. Ou seja, armazene o dicicionário de one-hots para uso nas demais funções.)
 
-- No que se trata das matrizes de permutação, para que a cifra possa funcionar, é realizada uma multiplicação matricial de uma cifra por cada caractere de uma mensagem codificada em one-hot.
-
-$$
-
-\begin{bmatrix}
-
-0 & 0 & 1 \\
-
-1 & 0 & 0 \\
-
-0 & 1 & 0
-
-\end{bmatrix}
-
-\begin{bmatrix}
-
-0 & 1 & 0 & 1 \\
-
-1 & 0 & 0 & 0 \\
-
-0 & 0 & 1 & 0
-
-\end{bmatrix}
-
-=
-
-\begin{bmatrix}
-
-0 & 0 & 1 & 0 \\
-
-0 & 1 & 0 & 1 \\
-
-1 & 0 & 0 & 0
-
-\end{bmatrix}
+No que se trata das matrizes de permutação, para que a cifra possa funcionar, é realizada uma multiplicação matricial de uma cifra por cada caractere de uma mensagem codificada em one-hot encoding.
 
 $$
-
-Para realização do processo inverso, o de decifrar, usamos a matriz inversa da cifra e a multiplicamos pelos caracteres. É quase igual ao processo de cifrar, porém com o uso da cifra inversa, o mesmo se aplica para multiplas cifras com a cautela de se multiplicar as inversas na ordem apropriada.
-
+ Cc = P*C
 $$
 
-\begin{bmatrix}
+- Cc : caracter cifrado;
+- C(n) ou C : caracter de numero n (ordem alfabética) ou caracter em questão;
+- P : cifra base de permutação;
 
-0 & 0 & 1 \\
-
-1 & 0 & 0 \\
-
-0 & 1 & 0
-
-\end{bmatrix}
-
-\begin{bmatrix}
-
-0 & 1 & 0 & 1 \\
-
-1 & 0 & 0 & 0 \\
-
-0 & 0 & 1 & 0
-
-\end{bmatrix}
-
-=
-
-\begin{bmatrix}
-
-0 & 0 & 1 & 0 \\
-
-0 & 1 & 0 & 1 \\
-
-1 & 0 & 0 & 0
-
-\end{bmatrix}
+\
+Finalmente, para a aplicação do ciframento enigma, usamos multiplicações matriciais como no processo do ciframento anterior, porém com o uso de uma cifra auxiliar. Este processo se dá através do seguinte método :
 
 $$
-
-- Finalmente, para a aplicação do ciframento enigma, usamos multiplicações matriciais como no processo do ciframento normal, porém com o uso de uma cifra auxiliar. O processo é similar ao de ciframento comum, com a diferença de multiplicar a cifra inicial n vezes pela cifra auxiliar e depois pelos caracteres em one hot, sendo n o numero de ordenação do caracter cifrado menos 1, esses padrão adiciona uma camada de ciframento a mais para cada caracter da mensagem, sendo uma forma simples de gerar uma mensagem difícil de decifrar para quem não possui as cifras e no nosso caso, o alfabeto origem. 
-
+Cc = E^n * P * C(n)
 $$
 
-\begin{bmatrix}
+- $E^n$ : cifra auxiliar aplicada n vezes;
 
-0 & 0 & 1 \\
-
-1 & 0 & 0 \\
-
-0 & 1 & 0
-
-\end{bmatrix}
-
-\begin{bmatrix}
-
-0 & 1 & 0 & 1 \\
-
-1 & 0 & 0 & 0 \\
-
-0 & 0 & 1 & 0
-
-\end{bmatrix}
-
-=
-
-\begin{bmatrix}
-
-0 & 0 & 1 & 0 \\
-
-0 & 1 & 0 & 1 \\
-
-1 & 0 & 0 & 0
-
-\end{bmatrix}
-
-$$
+Esse padrão adiciona uma camada de ciframento a mais para cada caracter da mensagem, sendo uma forma simples de gerar uma mensagem difícil de se decifrar para quem não possui as cifras e no nosso caso, o alfabeto origem também. 
