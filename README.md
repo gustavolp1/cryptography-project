@@ -103,7 +103,7 @@ C =
 
 $$
 
-  
+OBS : Como este alfabeto não é padronizado, ele também é necessário para se decifrar a mensagem mais para frente.
 
 Portanto, uma mensagem inteira é representada por uma matriz onde cada coluna equivale a uma matriz de caractere diferente. A mensagem "BACA", por exemplo, seria representada como:
 
@@ -211,7 +211,7 @@ $$
 
 $$
 
-Para realização do processo inverso, o de decifrar, usamos a matriz inversa da cifra e a multiplicamos pelos caracteres. É quase igual ao processo de cifrar, porém com o uso da cifra inversa.
+Para realização do processo inverso, o de decifrar, usamos a matriz inversa da cifra e a multiplicamos pelos caracteres. É quase igual ao processo de cifrar, porém com o uso da cifra inversa, o mesmo se aplica para multiplas cifras com a cautela de se multiplicar as inversas na ordem apropriada.
 
 $$
 
@@ -249,7 +249,7 @@ $$
 
 $$
 
-- Finalmente, para a aplicação do ciframento enigma, usamos o mesmo processo do ciframento normal, porém com o adicional de uma cifra auxiliar. O processo é igual ao de ciframento comum, com a diferença de multiplicar a cifra adicional pelos caracteres cifrados, adicionando uma camada de ciframento a mais.
+- Finalmente, para a aplicação do ciframento enigma, usamos multiplicações matriciais como no processo do ciframento normal, porém com o uso de uma cifra auxiliar. O processo é similar ao de ciframento comum, com a diferença de multiplicar a cifra inicial n vezes pela cifra auxiliar e depois pelos caracteres em one hot, sendo n o numero de ordenação do caracter cifrado menos 1, esses padrão adiciona uma camada de ciframento a mais para cada caracter da mensagem, sendo uma forma simples de gerar uma mensagem difícil de decifrar para quem não possui as cifras e no nosso caso, o alfabeto origem. 
 
 $$
 
